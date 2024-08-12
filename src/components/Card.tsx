@@ -12,9 +12,12 @@ export const Card = () => {
         </h2>
         <div className='flex justify-between'>
           <ul className='flex items-center gap-3 text-[#969696] text-xs font-light'>
-            <li className='before:content-["#"]'>日常</li>
+            <li className='flex'>
+              <Image width={14} height={14} src='/images/tag.svg' alt='tag' />
+              <span className='translate-x-[-2px]'>日常</span>
+            </li>
           </ul>
-          <div className='relative group-hover:translate-x-1 duration-300'>
+          <div className='relative group-hover:translate-x-1 duration-200'>
             <div className='font-extralight group-hover:after:content-[""] group-hover:after:w-[90%] group-hover:after:transform after:block after:absolute after:w-0 after:h-[1px] after:duration-150 after:bg-[#fe2811] after:translate-x-[1px]'>
               <Image
                 width={18}
