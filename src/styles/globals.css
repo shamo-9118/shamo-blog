@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+  font-family: 'Avenir-Roman';
+  src: url('/avenir-roman-regular.ttf') format('ttf'),
+    url('/avenir-roman-regular.ttf') format('ttf');
+  font-weight: normal;
+  font-style: normal;
+}
