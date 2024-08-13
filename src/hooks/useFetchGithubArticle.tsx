@@ -1,9 +1,10 @@
 import { useCallback, useState } from 'react';
+import type { GitHubTreeResponse } from '@/types/GitHubTreeResponse';
 
 export const useFetchGithubArticle = () => {
   // NOTE: GitHubから取得できるデータ型が不明のためany
   // TODO: GitHub側のデータかたわかり次第型をつける
-  const [data, setData] = useState<any>(null);
+  const [data, setData] = useState<GitHubTreeResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
 
