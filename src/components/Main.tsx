@@ -15,7 +15,6 @@ export const Main = () => {
 
     fetchArticle();
   }, []);
-  console.log(articleData);
 
   const formatedArticleDataList = useMemo(() => {
     articleData?.map(() => {});
