@@ -19,6 +19,7 @@ type ArticleContentTreeData = {
   name: string;
   articleContentsTree: Tree[];
 };
+
 export const fetchShamoArticleURLs = async (): Promise<
   ArticleContentTreeData[] | void
 > => {
