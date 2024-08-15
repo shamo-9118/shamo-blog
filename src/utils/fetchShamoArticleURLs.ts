@@ -1,7 +1,27 @@
 import { Octokit } from 'octokit';
 import type { GithubFileResponse } from '@/types/GithubFileResponse';
 
-export const fetchShamoArticleURLs = async (): Promise<string[] | void> => {
+type ArticleDirectoryData = {
+  git_url: string;
+  name: string;
+};
+
+type Tree = {
+  path: string;
+  mode: string;
+  type: string;
+  sha: string;
+  size: number;
+  url: string;
+};
+
+type ArticleContentTreeData = {
+  name: string;
+  articleContentsTree: Tree[];
+};
+export const fetchShamoArticleURLs = async (): Promise<
+  ArticleContentTreeData[] | void
+> => {
   const token = process.env.NEXT_PUBLIC_GITHUB_TOKEN;
   const octokit = new Octokit({ auth: token });
 
@@ -22,9 +42,41 @@ export const fetchShamoArticleURLs = async (): Promise<string[] | void> => {
       throw new Error(`HTTP Request error ${response.status}`);
     }
 
-    return response.data.map(
-      (responseData: GithubFileResponse) => responseData.url,
+    const articleDirectoryDatas: ArticleDirectoryData[] = response.data.map(
+      (responseData: GithubFileResponse) => {
+        return {
+          git_url: responseData.git_url,
+          name: responseData.name,
+        };
+      },
     );
+
+    const articleContentPromises = articleDirectoryDatas.map(
+      async (articleDirectoryData) => {
+        const responseArticleContentData = await fetch(
+          articleDirectoryData.git_url,
+        );
+
+        if (!responseArticleContentData.ok) {
+          throw new Error(
+            `HTTP Request error: ${responseArticleContentData.ok}`,
+          );
+        }
+
+        const articleContentData = await responseArticleContentData.json();
+
+        const articleContentsTree: Tree[] = articleContentData.tree;
+
+        return {
+          name: articleDirectoryData.name,
+          articleContentsTree,
+        };
+      },
+    );
+
+    const articleContentTreeData = await Promise.all(articleContentPromises);
+
+    return articleContentTreeData;
   } catch (error: unknown) {
     if (error instanceof Error) {
       console.error(
