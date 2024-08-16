@@ -1,9 +1,14 @@
 import { fetchShamoArticleURLs } from '@/utils/fetchShamoArticleURLs';
 import { formatFileNameToData } from './formatFileNameToData';
 import type { ContentData } from '@/types/ContentData';
+import { Dispatch, SetStateAction } from 'react';
 
-export const fetchShamoArticleContents = async () => {
+export const fetchShamoArticleContents = async (
+  setIsLoading: Dispatch<SetStateAction<boolean>>,
+) => {
   try {
+    setIsLoading(true);
+
     const articleContentTreesData = await fetchShamoArticleURLs();
 
     if (!articleContentTreesData) return;
@@ -47,8 +52,11 @@ export const fetchShamoArticleContents = async () => {
       },
     );
 
+    setIsLoading(false);
+
     return await Promise.all(fetchPromises);
   } catch (error: unknown) {
+    setIsLoading(false);
     if (error instanceof Error) {
       console.error(
         `shamo-blog-articleから記事の取得中にエラーが発生しました:${error.message}`,
