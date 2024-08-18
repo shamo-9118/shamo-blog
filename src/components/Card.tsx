@@ -1,20 +1,32 @@
 import Image from 'next/image';
 
-export const Card = () => {
+type ArticleData = {
+  retucontent: string;
+  time: string;
+  title: string;
+  category: string;
+};
+
+type CardProps = {
+  key: number;
+  articleData: ArticleData;
+};
+
+export const Card = (props: CardProps) => {
   return (
     <div className='bg-[#ffffffe6] px-7 py-5 space-y-2 group'>
       <time dateTime='2024/08/12' className='text-sm'>
-        2024/08/12
+        {props.articleData.time}
       </time>
       <div className='space-y-2 group-hover:opacity-60 duration-150'>
-        <h2 className='text-xl font-bold'>
-          今日からお盆だけど暑すぎてどうにもならない、、
-        </h2>
+        <h2 className='text-xl font-bold'>{props.articleData.title}</h2>
         <div className='flex justify-between'>
           <ul className='flex items-center gap-3 text-[#969696] text-xs font-light'>
             <li className='flex'>
               <Image width={14} height={14} src='/images/tag.svg' alt='tag' />
-              <span className='translate-x-[-2px]'>日常</span>
+              <span className='translate-x-[-2px]'>
+                {props.articleData.category}
+              </span>
             </li>
           </ul>
           <div className='relative group-hover:translate-x-1 duration-200'>
