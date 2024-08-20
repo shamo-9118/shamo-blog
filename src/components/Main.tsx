@@ -8,6 +8,7 @@ import { useState, useMemo, useEffect } from 'react';
 type ArticleData = {
   name: string;
   postData: {
+    id: string,
     content: string;
     name: string;
   }[];
@@ -35,6 +36,7 @@ export const Main = () => {
         const category = abstractText('Category: ', '\n---', post.content);
 
         return {
+          id: post.id,
           retucontent: post.content,
           time: post.name,
           title: title,

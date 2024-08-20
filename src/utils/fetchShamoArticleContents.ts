@@ -41,6 +41,7 @@ export const fetchShamoArticleContents = async (
                 articleContentData.res.content,
                 'base64',
               ).toString('utf-8'),
+              id:articleContentData.res.sha
             };
           },
         );
