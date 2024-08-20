@@ -8,7 +8,7 @@ type ArticleData = {
 };
 
 type CardProps = {
-  key: number;
+  key: string;
   articleData: ArticleData;
 };
 

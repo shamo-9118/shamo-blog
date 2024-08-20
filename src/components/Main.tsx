@@ -55,8 +55,8 @@ export const Main = () => {
         {isLoading ? (
           <Loading />
         ) : (
-          formatedArticleListData.map((articleData, index) => (
-            <Card key={index} articleData={articleData} />
+          formatedArticleListData.map((articleData) => (
+            <Card key={articleData.id} articleData={articleData} />
           ))
         )}
       </div>
