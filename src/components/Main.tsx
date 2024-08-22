@@ -2,17 +2,9 @@ import { Heading } from '@/components/Heading';
 import { Card } from '@/components/Card';
 import { Loading } from '@/components/Loading';
 import { fetchShamoArticleContents } from '@/utils/fetchShamoArticleContents';
-import { abstractText } from '@/utils/abstractText';
+import { formatArticleData } from '@/utils/formatArticleData';
 import { useState, useMemo, useEffect } from 'react';
-
-type ArticleData = {
-  name: string;
-  postData: {
-    id: string,
-    content: string;
-    name: string;
-  }[];
-};
+import type { ArticleData } from '@/types/ArticleData';
 
 export const Main = () => {
   const [articlesData, setArticleData] = useState<ArticleData[]>([]);
@@ -30,20 +22,7 @@ export const Main = () => {
   }, []);
 
   const formatedArticleListData = useMemo(() => {
-    return articlesData.flatMap((articleData) =>
-      articleData.postData.map((post) => {
-        const title = abstractText('Title: ', '\nDraft:', post.content);
-        const category = abstractText('Category: ', '\n---', post.content);
-
-        return {
-          id: post.id,
-          retucontent: post.content,
-          time: post.name,
-          title: title,
-          category: category,
-        };
-      }),
-    );
+    return formatArticleData(articlesData);
   }, [articlesData]);
 
   return (
