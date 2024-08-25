@@ -30,7 +30,7 @@ export const Main = () => {
       <div className='max-w-[780px] mx-auto pt-[100px] pb-12'>
         <Heading>Blog</Heading>
       </div>
-      <div className='max-w-[780px] mx-auto space-y-4'>
+      <div className='max-w-[780px] mx-auto grid grid-cols-1 gap-4'>
         {isLoading ? (
           <Loading />
         ) : (
