@@ -9,6 +9,7 @@ export const formatArticleData = (articlesData: ArticleData[]) => {
 
       return {
         id: post.id,
+        path: post.path,
         retucontent: post.content,
         time: post.name,
         title: title,
