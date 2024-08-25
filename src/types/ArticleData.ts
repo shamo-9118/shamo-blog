@@ -4,5 +4,6 @@ export type ArticleData = {
     id: string;
     content: string;
     name: string;
+    path: string;
   }[];
 };
